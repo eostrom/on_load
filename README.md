@@ -71,4 +71,11 @@ as `page.onload`, when you're already in an RJS context.
 
 [jsfu]: http://github.com/osteele/javascript_fu/tree/master
 
+Testing note
+------------
+
+To run the plugin's tests, you must also install [`plugin_test_helper`][pth]. This is not required if you just want to use `on_load`.
+
+[pth]: http://github.com/pluginaweek/plugin_test_helper/tree/master
+
 Copyright (c) 2009 Erik Ostrom, released under the MIT license
