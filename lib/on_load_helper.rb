@@ -4,6 +4,7 @@ module OnLoadHelper
       if block.arity > 0
         content = update_page(&block)
       else
+        rjs = true
         content = capture(&block)
       end
     end
@@ -15,7 +16,7 @@ module OnLoadHelper
     
     result = OnLoadHelper::wrap_with_on_load {|out| out << content}
     
-    if block_given? && block_called_from_erb?(block)
+    if rjs && block_called_from_erb?(block)
       concat(result)
     else
       result

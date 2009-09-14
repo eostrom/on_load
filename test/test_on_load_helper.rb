@@ -62,9 +62,11 @@ protected
   
   def code_regexp(code)
     Regexp.new(
+      '\A' +
       code.strip.split("\n").map do |line|
         Regexp.quote(line.strip)
-      end.join('\s+'),
+      end.join('\s+') +
+      '\Z',
       'm')
   end
   
