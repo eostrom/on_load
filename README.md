@@ -44,6 +44,8 @@ So does this, in an RJS file:
 The `on_load_tag` helper
 ------------------------
 
+_`on_load_tag` is not yet implemented._
+
 If you're not already in a JavaScript context, you may want to create
 one. The `on_load_tag` helper works like `on_load`, but wraps its output in a `script` tag, a la `javascript_tag`.
 
