@@ -35,6 +35,12 @@ So does this, in an ERB file:
       $$('div.tabcontent').invoke('hide');
     <% end %>
 
+So does this, in an RJS file:
+
+    page.on_load do
+      page.select('div.tabcontent').invoke('hide');
+    end
+
 The `on_load_tag` helper
 ------------------------
 
@@ -55,8 +61,8 @@ generates:
     //]]>
     </script>
 
-as do the other variations you'd expect from `on_load`. HTML options
-may be passed in for the `script` tag:
+as do the other variations you'd expect from `on_load` (but not
+`page.on_load`). HTML options may be passed in for the `script` tag:
 
     on_load_tag("$$('div.tabcontent').invoke('hide');",
       :charset => 'UTF-8')

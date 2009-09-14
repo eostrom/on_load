@@ -46,6 +46,18 @@ class TestOnLoadHelper < ActionController::TestCase
       %[document.observe('dom:loaded', function() {alert("hi!");})])
   end
 
+  test "page.on_load in RJS treats a block as RJS" do
+    @request.accept = 'text/javascript'
+    get :on_load_in_rjs
+    
+    assert_on_load(
+      %[
+        document.observe('dom:loaded', function() {
+          alert("rjs");
+        })
+      ])
+  end
+
 protected
   
   def code_regexp(code)

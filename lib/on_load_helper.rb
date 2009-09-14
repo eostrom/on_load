@@ -13,12 +13,36 @@ module OnLoadHelper
       content = content.sub(/\A\n*(.*[^\n])\n*\Z/m, "\n#{$1}\n")
     end
     
-    result = %{document.observe('dom:loaded', function() {#{content}})\n}
+    result = OnLoadHelper::wrap_with_on_load {|out| out << content}
     
     if block_given? && block_called_from_erb?(block)
       concat(result)
     else
       result
+    end
+  end
+  
+  ON_LOAD_WRAPPER_START =
+    %[document.observe('dom:loaded', function() {]
+  ON_LOAD_WRAPPER_END = %[})\n]
+  
+  def self.wrap_with_on_load(output = '')
+    output << ON_LOAD_WRAPPER_START
+    yield(output)
+    output << ON_LOAD_WRAPPER_END
+  end
+end
+
+module ActionView #:nodoc:
+  module Helpers #:nodoc:
+    module PrototypeHelper #:nodoc:
+      class JavaScriptGenerator #:nodoc:
+        module GeneratorMethods
+          def on_load(&block)
+            OnLoadHelper::wrap_with_on_load(self, &block)
+          end
+        end
+      end
     end
   end
 end
